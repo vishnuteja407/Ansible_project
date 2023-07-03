@@ -1,0 +1,22 @@
+[ios_aaa]
+10.122.32.[201:202]
+10.122.32.204 ansible_ssh_common_args="-o KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa -c aes128-cbc,aes128-ctr,aes192-ctr,aes256-ctr"
+Device1 ansible_host=10.122.32.201 ansible_user=zsnso02 ansible_ssh_pass=rtpR0bot
+
+[ios_noaaa]
+10.122.32.7 ansible_ssh_common_args="-o KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa -c aes128-cbc,aes128-ctr,aes192-ctr,aes256-ctr"
+10.81.59.18 ansible_ssh_common_args="-o KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa -c aes128-cbc,aes128-ctr,aes192-ctr,aes256-ctr"
+10.122.32.203 ansible_ssh_common_args="-o KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa -c aes128-cbc,aes128-ctr,aes192-ctr,aes256-ctr"
+
+[ios:children]
+ios_aaa
+ios_noaaa
+
+[nxos]
+10.81.59.11
+10.122.32.63
+10.122.32.65
+
+[network_devices:children]
+ios
+nxos

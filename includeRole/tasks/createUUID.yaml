@@ -1,0 +1,11 @@
+---
+- name: Generate UUIDs.
+  shell: "/usr/bin/uuid"
+  loop: "{{ range(0, numUUID) | list }}"
+  register: uuids
+- name: Create list of uuids.
+  set_fact:
+     totalUUID: "{{ totalUUID | default([]) + [uuids['results'][item]['stdout']] }}"
+  loop: "{{ range(0, uuids['results'] | length) | list }}"
+- debug:
+    msg: "Display the UUIDs: {{ totalUUID }}"

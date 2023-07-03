@@ -1,0 +1,26 @@
+---
+- name: Install wireshark server
+  hosts: localhost
+
+  tasks:
+    - name: Auto update homebrew
+      community.general.homebrew_cask:
+        update_homebrew: true
+      tags: u-brew
+
+    - name: Install httpd package
+      community.general.homebrew_cask:
+        name: wireshark
+        state: present
+        sudo_password: "{{ ansible_become_pass }}"
+      tags: i-wire
+
+    - name: Remove wireshark service
+      community.general.homebrew_cask:
+        name: wireshark
+        state: absent
+        sudo_password: "{{ ansible_become_pass }}"
+      tags: a-wire
+
+
+# whereis wireshark

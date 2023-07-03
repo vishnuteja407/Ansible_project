@@ -1,0 +1,13 @@
+---
+- name: Add or Update user password
+  hosts: vm
+
+  tasks: 
+  - name: change "george" password
+    user:
+      name: george
+      update_password: always
+      password: "{{ newpassword|password_hash('sha512') }}"
+  
+# ansible-playbook changepass.yaml -i vmdetails.txt --extra-vars newpassword=abc123
+  

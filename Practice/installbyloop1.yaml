@@ -1,0 +1,24 @@
+- name: Install packages through loop
+  hosts: localhost
+  vars:
+    packages: [sublime-text,wireshark,appcleaner]
+  
+  tasks:
+  - name: Load variables
+    include_vars: localhostdetails.txt
+
+  - name: Install packages
+    community.general.homebrew_cask:
+      name: "{{ item }}"
+      state: present
+      sudo_password: "{{ local_password }}"
+    with_items: "{{ packages }}"
+    when: ansible_os_family == "Darwin" 
+
+  - name: Remove packages
+    community.general.homebrew_cask:
+      name: '{{item}}'
+      state: absent
+      sudo_password: "{{local_password}}"
+    loop: "{{packages}}"
+    when: ansible_os_family == "Darwin"

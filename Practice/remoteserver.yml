@@ -1,0 +1,57 @@
+- name: 'Performing check on remote server'
+  hosts: NSO_Servers
+  tasks:
+    - name: "Ping remote server"
+      ping:
+
+    - name: "Get entries in hosts file"
+      shell: cat /etc/hosts
+      register: command_output  
+
+    - name: 'Display data in variable'
+      debug: 
+        var: command_output
+
+    - name: "Ansible check directory"
+      stat:
+        path: /home/zsnso02/netsimautom/
+      register: my_folder
+
+    - name: "echo if directory already existed"
+      debug:
+        msg: "the netsimautom directory is already existed"
+      when: my_folder.stat.exists
+      
+    - name: "Ansible Create directory if not exists"
+      file:
+        path: /home/zsnso02/netsimautom/
+        state: directory
+        mode: 0755
+        group: ncsadmin
+        owner: zsnso02
+      when: my_folder.stat.exists == false
+
+    - name: Copy a file on the remote machine for editing
+      copy:
+        src: ~/Documents/role-params.helper.js
+        dest: /home/zsnso02/netsimautom/role-params.helper.js
+
+    - name: If follow=yes, /path/to/file will be overwritten by contents of foo.conf
+      ansible.builtin.copy:
+        src: ~/Documents/boot-validations-3.docx
+        dest: /home/zsnso02/link     # link to /path/to/file
+        follow: yes
+
+    - name: "Remove files for remote server"
+      file:
+        path: /home/zsnso02/netsimautom/role-params.helper.js
+        state: absent
+
+    - name: "Remove files for remote server"
+      file:
+        path: /home/zsnso02/link
+        state: absent
+
+
+
+

@@ -1,0 +1,25 @@
+- name: "Restarting netsim devices"
+  hosts: NSO_Servers
+  tasks:
+    - name: Read users from CSV file and return a list
+      community.general.read_csv:
+        path: Common-Service-CEWA-Voice-Devices2.csv
+        fieldnames: Hostname,BLC/Site,Device IP Address,Port Number,NED ID,Authgroup,Device Family,OS Version,Comments
+        delimiter: ','
+      register: devices
+      delegate_to: localhost
+    
+    - name: 'Display refistered data'
+      debug:
+        var: devices['list']
+    - name: Date and Time Example in Ansible
+      debug:
+        var=ansible_date_time.date
+    # - name: "Restarting netsim devices"
+    #   shell: 'cd netsimautom/; ncs-netsim start {{ item["Hostname"] }}'
+    #   when: item['Authgroup'] == 'voice_netsim_local'
+    #   loop: "{{ devices['list'] }}"
+    #   register: command_output
+    # - name: 'Display command result'
+    #   debug:
+    #     var: command_output

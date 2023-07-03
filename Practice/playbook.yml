@@ -1,0 +1,13 @@
+- hosts: localhost
+  tasks:
+    - name: "Read data from CSV File"
+      read_csv:
+        path: Common-Service-CEWA-Voice-Devices2.csv
+        fieldnames: Hostname, BLC/Site, Device IP Address, Port Number, NED ID, Authgroup, Device Family, OS Version, Comments
+        delimiter: ','
+      register: data
+    - name: "Display read data"
+      debug:
+        msg: "{{ data }}"
+    - name: "Create a file with content"
+      blockinfile: path=./data.csv block={{lookup('file', 'Common-Service-CEWA-Voice-Devices2.csv')}} create=yes state=present

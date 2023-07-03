@@ -1,0 +1,20 @@
+---
+- name: Install some package
+  hosts: localhost
+  vars:
+    package: sublime-text
+
+  tasks:
+    - name: Install package
+      community.general.homebrew_cask:
+        name: "{{ package }}"
+        state: present
+        sudo_password: "{{ ansible_become_pass }}"
+
+    # - name: Remove service
+    #   community.general.homebrew_cask:
+    #     name: "{{ package }}"
+    #     state: absent
+
+
+# whereis wireshark

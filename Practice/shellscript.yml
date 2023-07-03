@@ -1,0 +1,7 @@
+---
+- name: Playbook for shell script
+  hosts: vm
+
+  tasks:
+  - name: Run Shell script
+    shell: "/home/deployer/test/cfile.sh"

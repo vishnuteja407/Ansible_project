@@ -1,0 +1,33 @@
+---
+- name: Setp http and open firewall port
+  hosts: localhost
+  tasks:
+  - name: Install apache packages
+    yum:
+      name: httpd
+      state: present    
+
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+  
+  - name: Open port 80 for http access
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+  
+  - name: Restart firewalld service to load firewall changes
+    service:
+      name: firewalld
+      state: reloaded
+
+
+# state = waht to do with the package
+#  present or installed = install
+#  absent or removed = Un-install
+#  latest = Upgrade
+
+# state = What to do with the service
+#  started | stopped | reloaded | restarted

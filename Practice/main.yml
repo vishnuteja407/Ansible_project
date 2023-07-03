@@ -1,0 +1,11 @@
+#main.yml
+- name: Create UUID
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Set required number of uuids.
+      include_role:
+        name: ../includeRole
+        tasks_from: createUUID
+      vars:
+        numUUID: 5

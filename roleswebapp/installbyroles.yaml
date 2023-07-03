@@ -1,0 +1,10 @@
+---
+- name: Full install
+  hosts: eastservers
+  roles:
+    - fullinstall
+
+- name: Basic Install
+  hosts: westservers
+  roles:
+    - basicinstall

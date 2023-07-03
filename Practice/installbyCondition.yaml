@@ -1,0 +1,39 @@
+---
+- name: Install some package
+  hosts: localhost
+  vars:
+    package: sublime-text
+
+  tasks:
+    - name: Load variables
+      include_vars: localhostdetails.txt
+
+    - name: Install package on Redhat
+      yum:
+        name: "{{ package }}"
+        state: present
+        sudo_password: "{{ local_password }}"
+      when: ansible_os_family == "RedHat"
+
+    - name: Install package on Ubuntu
+      ansible.builtin.apt:
+        name: "{{ package }}"
+        state: present
+        sudo_password: "{{ local_password }}"
+      when: ansible_os_family == "Ubuntu"
+
+    - name: Install package on Mac
+      community.general.homebrew_cask:
+        name: "{{ package }}"
+        state: present
+        sudo_password: "{{ local_password }}"
+      when: ansible_os_family == "Darwin"
+
+    - name: Remove service
+      community.general.homebrew_cask:
+        name: "{{ package }}"
+        state: absent
+      when: ansible_os_family == "Darwin"
+
+
+# ansible-playbook installbyCondition.yaml --ask-vault-pass

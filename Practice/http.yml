@@ -1,0 +1,21 @@
+---
+- name: httpd and telnet
+  hosts: vm
+
+  tasks:
+  - name: Install httpd
+    yum:
+      name: httpd
+      state: present
+  
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+
+  - name: install telnet
+    yum:
+      name: telnet
+      state: present
+
+# ansible-playbook http.yml --start-at-task "install telnet" -i vmdetails.txt

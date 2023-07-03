@@ -1,0 +1,5 @@
+[eastservers]
+eastserver1 ansible_host=10.122.32.87 ansible_user=root ansible_ssh_pass=Cisc0123
+
+[westservers]
+westserver1 ansible_host=10.122.32.88 ansible_user=root ansible_ssh_pass=Cisc0123

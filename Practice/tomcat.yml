@@ -1,0 +1,20 @@
+---
+- name: Create a directory and download tomcat from url
+  hosts: localhost
+
+  tasks:
+  - name: Create a directory
+    file:
+      path: /Users/vibodapa/Music
+      state: directory
+      mode: 0755
+      owner: vibodapa
+      group: staff
+  
+  - name: Download tomcat from url
+    get_url:
+      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.71/src/apache-tomcat-9.0.71-src.tar.gz
+      dest: /Users/vibodapa/Music
+      mode: 0755
+      owner: vibodapa
+      group: staff
