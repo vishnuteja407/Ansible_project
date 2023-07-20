@@ -1,2 +1,2 @@
 [vm]
-vm1 ansible_host=10.122.32.87 ansible_user=deployer ansible_ssh_pass=BACRTPR0bot
+vm1 ansible_host=10.122.32.87 ansible_user=deployer
